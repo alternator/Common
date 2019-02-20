@@ -1,0 +1,8 @@
+{
+	"name": "jp.ickx.common",
+	"version": "0.0.1",
+	"unity": "2018.3",
+	"description": "ICKX Unity Common Library",
+	"dependencies": {
+	}
+}
