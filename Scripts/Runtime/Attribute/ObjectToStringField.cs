@@ -51,6 +51,7 @@ namespace ICKX {
 				}
 			}
 			property.stringValue = stringValue;
+			property.serializedObject.ApplyModifiedProperties ();
 
 			EditorGUI.EndProperty ();
 		}
