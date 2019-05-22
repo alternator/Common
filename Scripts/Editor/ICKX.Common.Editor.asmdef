@@ -1,0 +1,17 @@
+{
+    "name": "ICKX.Common.Editor",
+    "references": [
+        "GUID:86bd71cadc15ea844bbba2326765374d"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}
