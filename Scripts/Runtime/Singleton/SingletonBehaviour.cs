@@ -10,21 +10,23 @@ namespace ICKX {
 			get {
 				if (s_instance == null) {
 					s_instance = FindObjectOfType<T> ();
-					if (s_instance != null && !Instance.isInitialized) {
-						s_instance.Initialize ();
-					}
-				}
+					if (s_instance != null) {
+                        if (!s_instance.isInitialized)
+                        {
+                            s_instance.isInitialized = true;
+                            s_instance.Initialize();
+                        }
+                    }
+                }
 				return s_instance;
 			}
 		}
 
 		protected virtual bool isDontDestroyOnLoad { get { return false; } }
 
-		protected bool isInitialized = false;
+		private bool isInitialized = false;
 
 		protected virtual void Initialize () {
-			if (isInitialized) return;
-			isInitialized = true;
 		}
 
 		protected void Awake () {
@@ -39,9 +41,12 @@ namespace ICKX {
 			if (s_instance.isDontDestroyOnLoad) {
 				DontDestroyOnLoad (s_instance.gameObject);
 			}
-			if(!isInitialized) {
-				Initialize ();
-			}
-		}
-	}
+
+            if (!isInitialized)
+            {
+                isInitialized = true;
+                Initialize();
+            }
+        }
+    }
 }
