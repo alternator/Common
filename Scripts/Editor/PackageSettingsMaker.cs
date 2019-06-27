@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEditor;
 using System.Reflection;
@@ -9,6 +10,7 @@ namespace ICKX
     [InitializeOnLoad]
     public static class PackageSettingsMaker
     {
+		//[MenuItem("Tools/CreatePackageSettings")]
         static PackageSettingsMaker()
         {
 			EditorApplication.delayCall += () =>
@@ -22,12 +24,13 @@ namespace ICKX
 				{
 					string path = AssetDatabase.GUIDToAssetPath(guid);
 					if (string.IsNullOrEmpty(path)) continue;
-
-					TextAsset text = AssetDatabase.LoadMainAssetAtPath(path) as TextAsset;
-					if (text == null) continue;
 					if (System.IO.Path.GetExtension(path) == ".cs") continue;
 
-					foreach (var line in text.text.Split('\n'))
+					var lines = System.IO.File.ReadAllLines(path);
+					//TextAsset text = AssetDatabase.LoadMainAssetAtPath(path) as TextAsset;
+					//if (text == null) continue;
+
+					foreach (var line in lines)
 					{
 						string[] data = line.Split(':');
 						if (data.Length != 2) continue;
@@ -83,14 +86,14 @@ namespace ICKX
                 AssetDatabase.CreateFolder("Assets", "Resources");
             }
 
-            if (string.IsNullOrEmpty(filePath))
+			if (string.IsNullOrEmpty(filePath))
             {
                 filePath = $"Assets/Resources/{type.Name}.asset";
-            }
+			}
 
-            if (System.IO.File.Exists(filePath)) return;
+			if (System.IO.File.Exists(filePath)) return;
 
-            var asset = ScriptableObject.CreateInstance(type);
+			var asset = ScriptableObject.CreateInstance(type);
             if (asset == null) return;
 
             Debug.Log("AutoCreatePackageSettings : " + filePath + " : " + asset.GetType());
