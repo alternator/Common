@@ -30,13 +30,13 @@ namespace ICKX {
 		}
 
 		protected void Awake () {
-            if(s_instance == null) {
-                s_instance = this as T;
-            }else {
+            if(s_instance != null) {
                 if(s_instance != this) {
-                    Destroy (this);
-                }
-            }
+					Debug.LogError($"{typeof(T).FullName}重複したSingletonがあります", s_instance);
+                    Destroy (s_instance);
+				}
+			}
+			s_instance = this as T;
 
 			if (s_instance.isDontDestroyOnLoad) {
 				DontDestroyOnLoad (s_instance.gameObject);
