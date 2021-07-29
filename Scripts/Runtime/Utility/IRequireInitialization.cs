@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ICKX {
 
-	public interface IInitializable {
+	public interface IRequireInitialization {
 
 		void Initialize ();
 	}

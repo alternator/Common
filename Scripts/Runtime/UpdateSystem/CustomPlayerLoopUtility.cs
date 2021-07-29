@@ -9,7 +9,7 @@ namespace ICKX {
 	public static class CustomPlayerLoopUtility {
 
 		static bool isInit = false;
-		static PlayerLoopSystem playerLoopSystem;
+		public static PlayerLoopSystem playerLoopSystem;
 
 		public static void InsertLoop (Type playerLoopType, int insertIndex, PlayerLoopSystem system) {
 			Insert (playerLoopType, (subSystemList) => {

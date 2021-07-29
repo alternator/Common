@@ -14,18 +14,20 @@ namespace ICKX {
 					if(s_instance == null) {
 						s_instance = new GameObject (typeof (T).Name).AddComponent<T> ();
 					}
-					s_instance.Initialize ();
-				}
+
+                    if (!s_instance.isInitialized)
+                    {
+                        s_instance.isInitialized = true;
+                        s_instance.Initialize();
+                    }
+                }
 				return s_instance;
 			}
 		}
 
-		protected bool isInitialized = false;
+        private bool isInitialized = false;
 
 		protected virtual void Initialize () {
-			if (isInitialized) return;
-			isInitialized = true;
-			DontDestroyOnLoad (s_instance.gameObject);
 		}
 
 		protected void Awake () {
@@ -37,7 +39,13 @@ namespace ICKX {
 				}
 			}
 
-			s_instance.Initialize ();
+            DontDestroyOnLoad(gameObject);
+
+            if (!isInitialized)
+            {
+                isInitialized = true;
+                Initialize();
+            }
 		}
 	}
 }
